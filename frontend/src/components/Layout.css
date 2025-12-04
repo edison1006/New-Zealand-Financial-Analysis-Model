@@ -18,6 +18,25 @@
   transition: all 0.3s ease;
 }
 
+[data-theme="light"] .navbar {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+[data-theme="light"] .nav-links a {
+  color: #64748b;
+}
+
+[data-theme="light"] .nav-links a:hover {
+  background-color: rgba(123, 47, 247, 0.1);
+  color: #1a1f2e;
+}
+
+[data-theme="light"] .user-menu span {
+  color: #64748b;
+}
+
 .navbar::before {
   content: '';
   position: absolute;

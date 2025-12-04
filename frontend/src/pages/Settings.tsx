@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { companyApi } from '../services/api'
 import { Company } from '../types'
 import { useLanguage, Language } from '../contexts/LanguageContext'
+import { useTheme, Theme } from '../contexts/ThemeContext'
 import './Settings.css'
 
 const REGIONS = [
@@ -33,6 +34,7 @@ const INDUSTRIES = [
 
 const Settings = () => {
   const { language, setLanguage, t } = useLanguage()
+  const { theme, setTheme } = useTheme()
   const [companies, setCompanies] = useState<Company[]>([])
   const [loading, setLoading] = useState(false)
   const [showForm, setShowForm] = useState(false)
@@ -99,6 +101,27 @@ const Settings = () => {
         <button onClick={() => setShowForm(!showForm)} className="add-button">
           {showForm ? t('settings.create.button') : t('settings.add.company')}
         </button>
+      </div>
+
+      {/* Theme Settings */}
+      <div className="settings-card">
+        <h2>Theme</h2>
+        <div className="theme-selector">
+          <button
+            className={`theme-option ${theme === 'dark' ? 'active' : ''}`}
+            onClick={() => setTheme('dark')}
+          >
+            <div className="theme-preview dark-preview"></div>
+            <span>Dark Theme</span>
+          </button>
+          <button
+            className={`theme-option ${theme === 'light' ? 'active' : ''}`}
+            onClick={() => setTheme('light')}
+          >
+            <div className="theme-preview light-preview"></div>
+            <span>Light Theme</span>
+          </button>
+        </div>
       </div>
 
       {/* Language Settings */}

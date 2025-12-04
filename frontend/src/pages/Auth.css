@@ -55,6 +55,15 @@
   position: relative;
   z-index: 1;
   animation: slideUp 0.6s ease-out;
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .auth-card {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.1),
+    0 0 40px rgba(123, 47, 247, 0.1);
+  border: 1px solid #e2e8f0;
 }
 
 @keyframes slideUp {

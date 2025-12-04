@@ -21,17 +21,60 @@
   --aws-warning: #f59e0b;
 }
 
+/* Dark Theme (Default) */
+[data-theme="dark"] {
+  --aws-dark-bg: #0f1419;
+  --aws-darker-bg: #0a0e13;
+  --aws-card-bg: #1a1f2e;
+  --aws-card-hover: #232938;
+  --aws-text-primary: #ffffff;
+  --aws-text-secondary: #b4bcd0;
+  --aws-border: #2d3748;
+  --aws-bg-gradient: linear-gradient(135deg, var(--aws-darker-bg) 0%, var(--aws-dark-bg) 100%);
+  --aws-bg-overlay: 
+    radial-gradient(circle at 20% 50%, rgba(123, 47, 247, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(147, 51, 234, 0.1) 0%, transparent 50%);
+}
+
+/* Light Theme */
+[data-theme="light"] {
+  --aws-dark-bg: #ffffff;
+  --aws-darker-bg: #f8f9fa;
+  --aws-card-bg: #ffffff;
+  --aws-card-hover: #f1f3f5;
+  --aws-text-primary: #1a1f2e;
+  --aws-text-secondary: #64748b;
+  --aws-border: #e2e8f0;
+  --aws-bg-gradient: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  --aws-bg-overlay: 
+    radial-gradient(circle at 20% 50%, rgba(123, 47, 247, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(147, 51, 234, 0.05) 0%, transparent 50%);
+}
+
+/* Keep purple colors consistent across themes */
+[data-theme="dark"],
+[data-theme="light"] {
+  --aws-purple-primary: #7B2FF7;
+  --aws-purple-secondary: #9333EA;
+  --aws-purple-light: #A855F7;
+  --aws-purple-dark: #6B21A8;
+  --aws-success: #10b981;
+  --aws-error: #ef4444;
+  --aws-warning: #f59e0b;
+}
+
 body {
   font-family: 'Amazon Ember', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, var(--aws-darker-bg) 0%, var(--aws-dark-bg) 100%);
+  background: var(--aws-bg-gradient);
   color: var(--aws-text-primary);
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 body::before {
@@ -41,11 +84,10 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(123, 47, 247, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(147, 51, 234, 0.1) 0%, transparent 50%);
+  background: var(--aws-bg-overlay);
   pointer-events: none;
   z-index: 0;
+  transition: background 0.3s ease;
 }
 
 code {
@@ -71,11 +113,13 @@ html {
 
 ::-webkit-scrollbar-track {
   background: var(--aws-darker-bg);
+  transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--aws-purple-primary);
   border-radius: 4px;
+  transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
