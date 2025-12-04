@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { useLanguage } from '../contexts/LanguageContext'
 import './Auth.css'
 
 const Login = () => {
+  const { t } = useLanguage()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -29,7 +31,7 @@ const Login = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>Login</h1>
+        <h1>{t('auth.login')}</h1>
         <p className="subtitle">New Zealand Financial Analytics Platform</p>
         <div style={{ 
           background: 'rgba(123, 47, 247, 0.1)', 
@@ -40,14 +42,14 @@ const Login = () => {
           fontSize: '0.85rem',
           color: 'var(--aws-text-secondary)'
         }}>
-          <strong>Demo Account:</strong><br />
-          Email: <code style={{ color: 'var(--aws-purple-light)' }}>demo@example.com</code><br />
-          Password: <code style={{ color: 'var(--aws-purple-light)' }}>demo123</code>
+          <strong>{t('auth.demo.account')}</strong><br />
+          {t('auth.email')}: <code style={{ color: 'var(--aws-purple-light)' }}>{t('auth.demo.email')}</code><br />
+          {t('auth.password')}: <code style={{ color: 'var(--aws-purple-light)' }}>{t('auth.demo.password')}</code>
         </div>
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">{t('auth.email')}</label>
             <input
               type="email"
               id="email"
@@ -58,7 +60,7 @@ const Login = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">{t('auth.password')}</label>
             <input
               type="password"
               id="password"
@@ -69,11 +71,11 @@ const Login = () => {
             />
           </div>
           <button type="submit" disabled={loading} className="submit-button">
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? t('auth.logging') : t('auth.login.button')}
           </button>
         </form>
         <p className="auth-link">
-          Don't have an account? <Link to="/register">Register here</Link>
+          {t('auth.link.register')} <Link to="/register">{t('auth.register')}</Link>
         </p>
       </div>
     </div>

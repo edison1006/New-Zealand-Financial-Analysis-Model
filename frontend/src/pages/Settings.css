@@ -340,6 +340,55 @@
   border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
+.language-selector {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.language-option {
+  padding: 0.875rem 2rem;
+  background: rgba(15, 20, 25, 0.6);
+  border: 2px solid var(--aws-border);
+  border-radius: 8px;
+  color: var(--aws-text-secondary);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.language-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--aws-purple-primary), var(--aws-purple-light));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.language-option:hover {
+  border-color: var(--aws-purple-primary);
+  color: var(--aws-text-primary);
+  transform: translateY(-2px);
+}
+
+.language-option.active {
+  background: linear-gradient(135deg, var(--aws-purple-primary), var(--aws-purple-secondary));
+  border-color: var(--aws-purple-primary);
+  color: white;
+  box-shadow: 0 4px 15px rgba(123, 47, 247, 0.3);
+}
+
+.language-option.active::before {
+  opacity: 0;
+}
+
 @media (max-width: 768px) {
   .settings-header {
     flex-direction: column;

@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { useLanguage } from '../contexts/LanguageContext'
 import './Auth.css'
 
 const Register = () => {
+  const { t } = useLanguage()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
@@ -30,12 +32,12 @@ const Register = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>Register</h1>
+        <h1>{t('auth.register')}</h1>
         <p className="subtitle">Create your account</p>
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="fullName">Full Name (Optional)</label>
+            <label htmlFor="fullName">{t('auth.fullname')}</label>
             <input
               type="text"
               id="fullName"
@@ -45,7 +47,7 @@ const Register = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">{t('auth.email')}</label>
             <input
               type="email"
               id="email"
@@ -56,7 +58,7 @@ const Register = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">{t('auth.password')}</label>
             <input
               type="password"
               id="password"
@@ -68,11 +70,11 @@ const Register = () => {
             />
           </div>
           <button type="submit" disabled={loading} className="submit-button">
-            {loading ? 'Registering...' : 'Register'}
+            {loading ? t('auth.registering') : t('auth.register.button')}
           </button>
         </form>
         <p className="auth-link">
-          Already have an account? <Link to="/login">Login here</Link>
+          {t('auth.link.login')} <Link to="/login">{t('auth.login')}</Link>
         </p>
       </div>
     </div>

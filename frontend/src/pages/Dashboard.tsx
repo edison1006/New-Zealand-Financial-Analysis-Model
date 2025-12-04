@@ -3,6 +3,7 @@ import { companyApi, financialApi } from '../services/api'
 import { Company, FinancialAnalysisResponse } from '../types'
 import KPICard from '../components/KPICard'
 import TrendChart from '../components/TrendChart'
+import FeatureCard from '../components/FeatureCard'
 import './Dashboard.css'
 
 const Dashboard = () => {
@@ -59,17 +60,42 @@ const Dashboard = () => {
     }
   }
 
-  if (loading && !analysis) {
-    return <div className="dashboard-loading">Loading dashboard...</div>
-  }
+  // Financial analysis features
+  const financialFeatures = [
+    {
+      title: 'Cash flow health check',
+      items: ['Liquidity trend', 'Free cash flow coverage', 'Burn runway'],
+      icon: '💰'
+    },
+    {
+      title: 'Leverage & solvency risk',
+      items: ['Debt structure', 'Interest coverage', 'Covenant headroom'],
+      icon: '⚖️'
+    },
+    {
+      title: 'Operating efficiency',
+      items: ['Working capital turns', 'Cash conversion cycle', 'Asset productivity'],
+      icon: '⚡'
+    },
+    {
+      title: 'Profitability & quality of earnings',
+      items: ['Margins', 'Accrual quality', 'Sustainability of earnings'],
+      icon: '📈'
+    },
+    {
+      title: 'Revenue growth & cost structure',
+      items: ['Growth mix', 'Pricing power', 'Unit economics', 'Operating leverage'],
+      icon: '📊'
+    },
+    {
+      title: 'Valuation & market performance',
+      items: ['Multiples versus peers', 'Market sentiment', 'Upside/downside'],
+      icon: '🎯'
+    },
+  ]
 
-  if (companies.length === 0) {
-    return (
-      <div className="dashboard-empty">
-        <h2>Welcome to NZ Financial Analytics</h2>
-        <p>Get started by creating a company in Settings.</p>
-      </div>
-    )
+  if (loading && !analysis && companies.length > 0) {
+    return <div className="dashboard-loading">Loading dashboard...</div>
   }
 
   return (
@@ -104,7 +130,33 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {analysis && (
+      {/* Financial Analysis Features Grid */}
+      <div className="features-section">
+        <h2 className="features-section-title">Financial Analysis</h2>
+        <div className="features-grid">
+          {financialFeatures.map((feature, index) => (
+            <FeatureCard
+              key={index}
+              title={feature.title}
+              items={feature.items}
+              icon={feature.icon}
+              onClick={() => {
+                // Navigate to reports page or show detailed analysis
+                console.log(`Viewing ${feature.title}`)
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {companies.length === 0 && (
+        <div className="dashboard-empty">
+          <h2>Welcome to NZ Financial Analytics</h2>
+          <p>Get started by creating a company in Settings to view detailed financial data.</p>
+        </div>
+      )}
+
+      {analysis && companies.length > 0 && (
         <>
           <div className="kpi-grid">
             <KPICard

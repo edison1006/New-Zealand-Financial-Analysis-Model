@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { companyApi } from '../services/api'
 import { Company } from '../types'
+import { useLanguage, Language } from '../contexts/LanguageContext'
 import './Settings.css'
 
 const REGIONS = [
@@ -31,6 +32,7 @@ const INDUSTRIES = [
 ]
 
 const Settings = () => {
+  const { language, setLanguage, t } = useLanguage()
   const [companies, setCompanies] = useState<Company[]>([])
   const [loading, setLoading] = useState(false)
   const [showForm, setShowForm] = useState(false)
@@ -93,10 +95,35 @@ const Settings = () => {
   return (
     <div className="settings-page">
       <div className="settings-header">
-        <h1>Company Settings</h1>
+        <h1>{t('settings.title')}</h1>
         <button onClick={() => setShowForm(!showForm)} className="add-button">
-          {showForm ? 'Cancel' : '+ Add Company'}
+          {showForm ? t('settings.create.button') : t('settings.add.company')}
         </button>
+      </div>
+
+      {/* Language Settings */}
+      <div className="settings-card">
+        <h2>{t('settings.language')}</h2>
+        <div className="language-selector">
+          <button
+            className={`language-option ${language === 'en' ? 'active' : ''}`}
+            onClick={() => setLanguage('en')}
+          >
+            {t('settings.language.en')}
+          </button>
+          <button
+            className={`language-option ${language === 'mi' ? 'active' : ''}`}
+            onClick={() => setLanguage('mi')}
+          >
+            {t('settings.language.mi')}
+          </button>
+          <button
+            className={`language-option ${language === 'zh' ? 'active' : ''}`}
+            onClick={() => setLanguage('zh')}
+          >
+            {t('settings.language.zh')}
+          </button>
+        </div>
       </div>
 
       {message && (
@@ -107,10 +134,10 @@ const Settings = () => {
 
       {showForm && (
         <div className="settings-card">
-          <h2>Create New Company</h2>
+          <h2>{t('settings.create.title')}</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="name">Company Name</label>
+              <label htmlFor="name">{t('settings.create.name')}</label>
               <input
                 type="text"
                 id="name"
@@ -121,7 +148,7 @@ const Settings = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="region">Region</label>
+              <label htmlFor="region">{t('settings.create.region')}</label>
               <select
                 id="region"
                 value={formData.region}
@@ -137,7 +164,7 @@ const Settings = () => {
               </select>
             </div>
             <div className="form-group">
-              <label htmlFor="industry">Industry</label>
+              <label htmlFor="industry">{t('settings.create.industry')}</label>
               <select
                 id="industry"
                 value={formData.industry}
@@ -153,32 +180,32 @@ const Settings = () => {
               </select>
             </div>
             <button type="submit" disabled={loading} className="submit-button">
-              {loading ? 'Creating...' : 'Create Company'}
+              {loading ? t('settings.create.creating') : t('settings.create.button')}
             </button>
           </form>
         </div>
       )}
 
       <div className="companies-list">
-        <h2>Your Companies</h2>
+        <h2>{t('settings.companies.title')}</h2>
         {companies.length === 0 ? (
-          <p className="empty-message">No companies yet. Create one to get started!</p>
+          <p className="empty-message">{t('settings.companies.empty')}</p>
         ) : (
           <div className="companies-grid">
             {companies.map((company) => (
               <div key={company.id} className="company-card">
                 <h3>{company.name}</h3>
                 <p className="company-info">
-                  <span className="label">Region:</span> {company.region}
+                  <span className="label">{t('settings.create.region')}:</span> {company.region}
                 </p>
                 <p className="company-info">
-                  <span className="label">Industry:</span> {company.industry}
+                  <span className="label">{t('settings.create.industry')}:</span> {company.industry}
                 </p>
                 <button
                   onClick={() => handleDelete(company.id)}
                   className="delete-button"
                 >
-                  Delete
+                  {t('settings.delete')}
                 </button>
               </div>
             ))}

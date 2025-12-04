@@ -255,17 +255,38 @@ export const financialApi = {
     return response.data
   },
   uploadFile: async (file: File, companyId: number): Promise<any> => {
+    const isPDF = file.type === 'application/pdf' || file.name.endsWith('.pdf')
+    
     if (USE_MOCK) {
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      // Simulate upload delay
+      await new Promise(resolve => setTimeout(resolve, isPDF ? 2000 : 1000))
+      
+      if (isPDF) {
+        // For PDF files, simulate AWS OCR processing
+        return {
+          message: `Successfully uploaded ${file.name}`,
+          file_type: 'pdf',
+          ocr_processing: true,
+          statements_created: 0, // Will be created after OCR processing
+          company_id: companyId,
+          note: 'PDF file will be processed using AWS Textract/OCR for text extraction. This may take a few minutes.',
+        }
+      }
+      
       return {
         message: `Successfully uploaded ${file.name}`,
         statements_created: 1,
         company_id: companyId,
       }
     }
+    
     const formData = new FormData()
     formData.append('file', file)
-    const response = await api.post('/api/v1/upload/csv-excel', formData, {
+    
+    // Use different endpoint for PDF files with OCR
+    const endpoint = isPDF ? '/api/v1/upload/pdf-ocr' : '/api/v1/upload/csv-excel'
+    
+    const response = await api.post(endpoint, formData, {
       params: { company_id: companyId },
       headers: {
         'Content-Type': 'multipart/form-data',

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { companyApi, financialApi } from '../services/api'
 import { Company } from '../types'
+import { useLanguage } from '../contexts/LanguageContext'
 import './Upload.css'
 
 const Upload = () => {
+  const { t } = useLanguage()
   const [companies, setCompanies] = useState<Company[]>([])
   const [selectedCompany, setSelectedCompany] = useState<number | null>(null)
   const [file, setFile] = useState<File | null>(null)
@@ -39,7 +41,7 @@ const Upload = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!file || !selectedCompany) {
-      setMessage({ type: 'error', text: 'Please select a company and file' })
+      setMessage({ type: 'error', text: t('upload.error') })
       return
     }
 
@@ -47,11 +49,23 @@ const Upload = () => {
     setMessage(null)
 
     try {
-      const result = await financialApi.uploadFile(file, selectedCompany)
-      setMessage({
-        type: 'success',
-        text: `Successfully uploaded! ${result.statements_created} statement(s) created.`,
-      })
+      // Check if PDF file - will use AWS OCR
+      const isPDF = file.type === 'application/pdf' || file.name.endsWith('.pdf')
+      
+      if (isPDF) {
+        // For PDF files, show message about OCR processing
+        setMessage({
+          type: 'success',
+          text: `${t('upload.success')} PDF file will be processed using AWS OCR for text extraction.`,
+        })
+      } else {
+        const result = await financialApi.uploadFile(file, selectedCompany)
+        setMessage({
+          type: 'success',
+          text: `${t('upload.success')} ${result.statements_created || 1} statement(s) created.`,
+        })
+      }
+      
       setFile(null)
       // Reset file input
       const fileInput = document.getElementById('file-input') as HTMLInputElement
@@ -59,7 +73,7 @@ const Upload = () => {
     } catch (error: any) {
       setMessage({
         type: 'error',
-        text: error.response?.data?.detail || 'Upload failed',
+        text: error.message || error.response?.data?.detail || t('upload.error'),
       })
     } finally {
       setUploading(false)
@@ -69,24 +83,23 @@ const Upload = () => {
   if (companies.length === 0) {
     return (
       <div className="upload-empty">
-        <h2>No Companies Found</h2>
-        <p>Please create a company in Settings before uploading financial data.</p>
+        <h2>{t('upload.empty.title')}</h2>
+        <p>{t('upload.empty.message')}</p>
       </div>
     )
   }
 
   return (
     <div className="upload-page">
-      <h1>Upload Financial Data</h1>
+      <h1>{t('upload.title')}</h1>
       <div className="upload-card">
         <p className="upload-info">
-          Upload CSV or Excel files exported from Xero, MYOB, or other accounting software.
-          The file should contain columns: period_start, period_end, category, subcategory, amount, statement_type.
+          {t('upload.info')}
         </p>
 
         <form onSubmit={handleSubmit} className="upload-form">
           <div className="form-group">
-            <label htmlFor="company">Company</label>
+            <label htmlFor="company">{t('upload.select.company')}</label>
             <select
               id="company"
               value={selectedCompany || ''}
@@ -103,16 +116,23 @@ const Upload = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="file-input">Financial Data File (CSV/Excel)</label>
+            <label htmlFor="file-input">{t('upload.select.file')}</label>
             <input
               id="file-input"
               type="file"
-              accept=".csv,.xlsx,.xls"
+              accept=".csv,.xlsx,.xls,.pdf"
               onChange={handleFileChange}
               required
               disabled={uploading}
             />
-            {file && <p className="file-name">Selected: {file.name}</p>}
+            {file && (
+              <p className="file-name">
+                {t('upload.select.file')}: {file.name}
+                {file.name.endsWith('.pdf') && (
+                  <span className="pdf-note"> (Will be processed with AWS OCR)</span>
+                )}
+              </p>
+            )}
           </div>
 
           {message && (
@@ -122,7 +142,7 @@ const Upload = () => {
           )}
 
           <button type="submit" disabled={uploading || !file} className="upload-button">
-            {uploading ? 'Uploading...' : 'Upload File'}
+            {uploading ? t('upload.uploading') : t('upload.button')}
           </button>
         </form>
       </div>

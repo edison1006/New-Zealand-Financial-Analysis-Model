@@ -1,9 +1,11 @@
 import { Outlet, Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { useLanguage } from '../contexts/LanguageContext'
 import './Layout.css'
 
 const Layout = () => {
   const { user, logout } = useAuth()
+  const { t } = useLanguage()
   const navigate = useNavigate()
 
   const handleLogout = () => {
@@ -19,13 +21,13 @@ const Layout = () => {
             NZ Financial Analytics
           </Link>
           <div className="nav-links">
-            <Link to="/dashboard">Dashboard</Link>
-            <Link to="/upload">Upload</Link>
-            <Link to="/reports">Reports</Link>
-            <Link to="/settings">Settings</Link>
+            <Link to="/dashboard">{t('nav.dashboard')}</Link>
+            <Link to="/upload">{t('nav.upload')}</Link>
+            <Link to="/reports">{t('nav.reports')}</Link>
+            <Link to="/settings">{t('nav.settings')}</Link>
             <div className="user-menu">
               <span>{user?.email}</span>
-              <button onClick={handleLogout}>Logout</button>
+              <button onClick={handleLogout}>{t('nav.logout')}</button>
             </div>
           </div>
         </div>
