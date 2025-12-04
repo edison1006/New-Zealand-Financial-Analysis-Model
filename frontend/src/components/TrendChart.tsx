@@ -47,3 +47,4 @@ const TrendChart: React.FC<TrendChartProps> = ({ data, title }) => {
 
 export default TrendChart
 
+

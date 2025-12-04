@@ -518,6 +518,31 @@
   opacity: 0;
 }
 
+[data-theme="light"] .language-option {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: var(--aws-text-secondary);
+}
+
+[data-theme="light"] .language-option.active {
+  background: linear-gradient(135deg, var(--aws-purple-primary), var(--aws-purple-secondary));
+  color: #ffffff;
+}
+
+/* Light theme overrides for cards */
+[data-theme="light"] .companies-list {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow:
+    0 8px 24px rgba(15, 23, 42, 0.06),
+    0 0 0 rgba(123, 47, 247, 0.05);
+}
+
+[data-theme="light"] .company-card {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
 @media (max-width: 768px) {
   .settings-header {
     flex-direction: column;

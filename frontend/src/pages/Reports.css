@@ -475,3 +475,37 @@
     align-items: flex-start;
   }
 }
+
+/* Light theme overrides */
+[data-theme="light"] .reports-header,
+[data-theme="light"] .reports-filters,
+[data-theme="light"] .report-section {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow:
+    0 8px 24px rgba(15, 23, 42, 0.06),
+    0 0 0 rgba(123, 47, 247, 0.05);
+}
+
+[data-theme="light"] .chart-container,
+[data-theme="light"] .summary-card,
+[data-theme="light"] .metric-item,
+[data-theme="light"] .ratio-category,
+[data-theme="light"] .ratio-item,
+[data-theme="light"] .recommendation-item {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .reports-loading,
+[data-theme="light"] .reports-empty {
+  background: #ffffff;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .filter-group select,
+[data-theme="light"] .filter-group input {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: var(--aws-text-primary);
+}

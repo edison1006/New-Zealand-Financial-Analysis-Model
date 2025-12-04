@@ -68,3 +68,4 @@ export interface FinancialAnalysisRequest {
   aggregation: 'monthly' | 'quarterly' | 'annual'
 }
 
+
