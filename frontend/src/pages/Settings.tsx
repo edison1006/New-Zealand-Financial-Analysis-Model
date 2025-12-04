@@ -5,15 +5,55 @@ import { useLanguage, Language } from '../contexts/LanguageContext'
 import { useTheme, Theme } from '../contexts/ThemeContext'
 import './Settings.css'
 
+// New Zealand regions and major cities
 const REGIONS = [
+  // Official regions
+  'Northland',
   'Auckland',
+  'Waikato',
+  'Bay of Plenty',
+  'Gisborne',
+  'Hawke\'s Bay',
+  'Taranaki',
+  'Manawatū-Whanganui',
   'Wellington',
-  'Christchurch',
+  'Tasman',
+  'Nelson',
+  'Marlborough',
+  'West Coast',
+  'Canterbury',
+  'Otago',
+  'Southland',
+  // Major cities (North Island)
+  'Whangārei',
+  'Auckland City',
   'Hamilton',
   'Tauranga',
-  'Dunedin',
-  'Palmerston North',
+  'Rotorua',
+  'Gisborne City',
   'Napier',
+  'Hastings',
+  'New Plymouth',
+  'Whanganui',
+  'Palmerston North',
+  'Kapiti Coast',
+  'Lower Hutt',
+  'Upper Hutt',
+  'Porirua',
+  'Wellington City',
+  // Major cities (South Island)
+  'Nelson City',
+  'Blenheim',
+  'Greymouth',
+  'Timaru',
+  'Christchurch',
+  'Ashburton',
+  'Queenstown',
+  'Dunedin',
+  'Invercargill',
+  // Fallback
+  'Other North Island',
+  'Other South Island',
   'Other',
 ]
 

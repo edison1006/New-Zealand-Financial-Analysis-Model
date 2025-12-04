@@ -183,69 +183,73 @@ const Reports = () => {
       </div>
 
       <div className="reports-filters">
-        <div className="filter-group">
-          <label>Company</label>
-          <select
-            value={selectedCompany || ''}
-            onChange={(e) => setSelectedCompany(e.target.value ? Number(e.target.value) : null)}
-          >
-            <option value="">All Companies</option>
-            {companies.map((company) => (
-              <option key={company.id} value={company.id}>
-                {company.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <div className="filters-row">
+          <div className="filter-group">
+            <label>Company</label>
+            <select
+              value={selectedCompany || ''}
+              onChange={(e) => setSelectedCompany(e.target.value ? Number(e.target.value) : null)}
+            >
+              <option value="">All Companies</option>
+              {companies.map((company) => (
+                <option key={company.id} value={company.id}>
+                  {company.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className="filter-group">
-          <label>Region</label>
-          <select value={selectedRegion} onChange={(e) => setSelectedRegion(e.target.value)}>
-            <option value="">All Regions</option>
-            {uniqueRegions.map((region) => (
-              <option key={region} value={region}>
-                {region}
-              </option>
-            ))}
-          </select>
-        </div>
+          <div className="filter-group">
+            <label>Region</label>
+            <select value={selectedRegion} onChange={(e) => setSelectedRegion(e.target.value)}>
+              <option value="">All Regions</option>
+              {uniqueRegions.map((region) => (
+                <option key={region} value={region}>
+                  {region}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className="filter-group">
-          <label>Industry</label>
-          <select value={selectedIndustry} onChange={(e) => setSelectedIndustry(e.target.value)}>
-            <option value="">All Industries</option>
-            {uniqueIndustries.map((industry) => (
-              <option key={industry} value={industry}>
-                {industry}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="filter-group">
-          <label>Date Range</label>
-          <div className="date-inputs">
-            <input
-              type="date"
-              value={dateRange.start}
-              onChange={(e) => setDateRange({ ...dateRange, start: e.target.value })}
-            />
-            <span>to</span>
-            <input
-              type="date"
-              value={dateRange.end}
-              onChange={(e) => setDateRange({ ...dateRange, end: e.target.value })}
-            />
+          <div className="filter-group">
+            <label>Industry</label>
+            <select value={selectedIndustry} onChange={(e) => setSelectedIndustry(e.target.value)}>
+              <option value="">All Industries</option>
+              {uniqueIndustries.map((industry) => (
+                <option key={industry} value={industry}>
+                  {industry}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
-        <div className="filter-group">
-          <label>Aggregation</label>
-          <select value={aggregation} onChange={(e) => setAggregation(e.target.value as any)}>
-            <option value="monthly">Monthly</option>
-            <option value="quarterly">Quarterly</option>
-            <option value="annual">Annual</option>
-          </select>
+        <div className="filters-row filters-row-secondary">
+          <div className="filter-group">
+            <label>Date Range</label>
+            <div className="date-inputs">
+              <input
+                type="date"
+                value={dateRange.start}
+                onChange={(e) => setDateRange({ ...dateRange, start: e.target.value })}
+              />
+              <span>to</span>
+              <input
+                type="date"
+                value={dateRange.end}
+                onChange={(e) => setDateRange({ ...dateRange, end: e.target.value })}
+              />
+            </div>
+          </div>
+
+          <div className="filter-group">
+            <label>Aggregation</label>
+            <select value={aggregation} onChange={(e) => setAggregation(e.target.value as any)}>
+              <option value="monthly">Monthly</option>
+              <option value="quarterly">Quarterly</option>
+              <option value="annual">Annual</option>
+            </select>
+          </div>
         </div>
       </div>
 

@@ -59,8 +59,8 @@
     0 8px 30px rgba(0, 0, 0, 0.3),
     0 0 30px rgba(123, 47, 247, 0.1);
   margin-bottom: 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
   position: relative;
   overflow: hidden;
@@ -87,6 +87,16 @@
   gap: 0.75rem;
 }
 
+.filters-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.filters-row-secondary {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
 .filter-group label {
   font-weight: 600;
   color: var(--aws-text-secondary);
@@ -104,6 +114,8 @@
   font-size: 1rem;
   color: var(--aws-text-primary);
   transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .filter-group select:hover,
