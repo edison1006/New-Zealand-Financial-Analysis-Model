@@ -197,5 +197,6 @@ This frontend is inspired by AWS Console's design language:
 ---
 ## 🎬 Demo Video
 
-https://github.com/edison1006/New-Zealand-Financial-Analysis-Model/raw/main/Demo.mp4
+https://raw.githubusercontent.com/edison1006/New-Zealand-Financial-Analysis-Model/main/Demo.mp4
+
 **Built with ❤️ for New Zealand businesses**
